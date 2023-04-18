@@ -26,6 +26,12 @@ namespace restful_webservice.Controllers
             })
             .ToArray();
         }
+        [HttpPost("test")]
+        public string test()
+        {
+            var url = Url.Link("xxx", null);
+            return $"The url of Route Name xxx is {url}";
+        }
     }
 }
 
