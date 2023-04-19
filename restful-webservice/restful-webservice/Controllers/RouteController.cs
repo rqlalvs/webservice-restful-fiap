@@ -6,6 +6,7 @@ namespace restful_webservice.Controllers
     [Route("[controller]")]
     public class RouteController : Controller
     {
+        Route route = new Route();
         private static readonly string[] Summaries = new[]
         {
         "smth about Routes"
@@ -17,21 +18,36 @@ namespace restful_webservice.Controllers
         {
             _logger = logger;
         }
-
-        [HttpGet(Name = "getRoute")]
-        public IEnumerable<Route> Get()
+        [HttpGet("getReport")]
+        public Route Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Route
-            {
-            })
-            .ToArray();
+            return route;
+        }
+        [HttpPost("addRoute")]
+        public string add(string dados, string coordenadas)
+        {
+            route.Coordenadas_Local = dados;
+            route.Dados_Local = coordenadas;
+
+            return $"Cadastrado com sucesso.";
         }
 
-        [HttpPost("test")]
-        public string test()
+        [HttpPost("editRoute")]
+        public string edit(string dados, string coordenadas)
         {
-            var url = Url.Link("xxx", null);
-            return $"The url of Route Name xxx is {url}";
+            route.Coordenadas_Local = dados;
+            route.Dados_Local = coordenadas;
+
+            return $"Editado com sucesso.";
+        }
+        [HttpPost("deleteRoute")]
+        public string delete(string dados)
+        {
+            //deve ter um id para selecionar posteriormente
+            route.Coordenadas_Local = "";
+            route.Dados_Local = "";
+
+            return $"Deletado com sucesso.";
         }
     }
 }

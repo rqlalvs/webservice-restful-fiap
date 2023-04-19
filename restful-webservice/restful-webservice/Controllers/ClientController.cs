@@ -6,10 +6,12 @@ namespace restful_webservice.Controllers
     [Route("[controller]")]
     public class ClientController : Controller
     {
+        Client client = new Client();
+
         private static readonly string[] Summaries = new[]
         {
         "smth about Clients"
-    };
+        };
 
         private readonly ILogger<ClientController> _logger;
 
@@ -19,18 +21,39 @@ namespace restful_webservice.Controllers
         }
 
         [HttpGet(Name = "getClient")]
-        public IEnumerable<Client> Get()
+        public Client Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Client
-            {
-            })
-            .ToArray();
+            return client;
         }
-        [HttpPost("test")]
-        public string test()
+
+        [HttpPost("addCliente")]
+        public string add(string email, string nome, string apelido)
         {
-            var url = Url.Link("xxx", null);
-            return $"The url of Route Name xxx is {url}";
+            client.Email = email;
+            client.Nome = nome;
+            client.Apelido = apelido;
+
+            return $"Cadastrado com sucesso.";
+        }
+
+        [HttpPost("editClient")]
+        public string edit(string email, string nome, string apelido)
+        {
+            client.Email = email;
+            client.Nome = nome;
+            client.Apelido = apelido;
+
+            return $"Editado com sucesso.";
+        }
+        [HttpPost("deleteClient")]
+        public string delete(string nome)
+        {
+            //deve ter um id para selecionar posteriormente
+            client.Email = "";
+            client.Nome = "";
+            client.Apelido = "";
+
+            return $"Deletado com sucesso.";
         }
     }
 }

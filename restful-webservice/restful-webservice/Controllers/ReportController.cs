@@ -6,31 +6,44 @@ namespace restful_webservice.Controllers
     [Route("[controller]")]
     public class ReportController : Controller
     {
+
+        Report report = new Report();
         private static readonly string[] Summaries = new[]
         {
-        "smth about reports"
+        "smth about Routes"
     };
 
-        private readonly ILogger<ReportController> _logger;
+        private readonly ILogger<RouteController> _logger;
 
-        public ReportController(ILogger<ReportController> logger)
+        public ReportController(ILogger<RouteController> logger)
         {
             _logger = logger;
         }
-
         [HttpGet(Name = "getReport")]
-        public IEnumerable<Report> Get()
+        public Report Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Report
-            {
-            })
-            .ToArray();
+            return report;
         }
-        [HttpPost("test")]
-        public string test()
+        [HttpPost("addReport")]
+        public string add(string report, string resolvido, string data)
         {
-            var url = Url.Link("xxx", null);
-            return $"The url of Route Name xxx is {url}";
+
+            return $"Cadastrado com sucesso.";
         }
+
+        [HttpPost("editReport")]
+        public string edit(string report, string resolvido, string data)
+        {
+
+
+            return $"Editado com sucesso.";
+        }
+        [HttpPost("deleteReport")]
+        public string delete(string nome)
+        {
+
+            return $"Deletado com sucesso.";
+        }
+
     }
 }
